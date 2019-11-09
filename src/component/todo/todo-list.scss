@@ -1,0 +1,29 @@
+.todo-list {
+  margin-top: 20px;
+}
+
+.add-view {
+  display: flex;
+  align-items: center;
+
+  input {
+    height: 30px;
+  }
+
+  button {
+    line-height: 1.6;
+    background-color: #0BBC0F;
+    color: white;
+  }
+
+  .add-btn-active {
+    background-color: #0BC80B;
+  }
+}
+
+
+
+.todo-item {
+  display: block;
+  margin-top: 20px;
+}
