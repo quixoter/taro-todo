@@ -4,6 +4,7 @@ import {View, CheckboxGroup, Checkbox, Input, Button} from '@tarojs/components'
 import './todo-list.scss'
 import {guid} from '../../utils/tool.js'
 
+/// 添加/删除
 function reducer(list, action) {
   switch (action.type) {
     case 'add':
@@ -21,18 +22,16 @@ function reducer(list, action) {
   }
 }
 
+/** 待办列表*/
 export default function TodoList(props) {
 
+  // 新的todo
   const [newTodo, setNewTodo] = useState('')
 
+  // todo-list
   const [list, dispatchList] = useReducer(reducer, props.list)
 
   const add = () => {
-    wx.showToast({
-      title: 'add',
-      icon: 'success',
-      duration: 500
-    })
     if (!newTodo) {
       return
     }
@@ -44,6 +43,7 @@ export default function TodoList(props) {
     <Checkbox className='todo-item' key={item.id} value={item.id} checked={item.checked}>{item.text}</Checkbox>
   ))
 
+  // CheckboxGroup - onChange
   const onChange = (e) => {
     props.onChange(e.target.value)
     e.preventDefault
@@ -57,7 +57,7 @@ export default function TodoList(props) {
           placeholder='输入新的待办事项'
           focus
           value={newTodo}
-          onInput={(e) => setNewTodo(e.target.value)}
+          onInput={(e) => {setNewTodo(e.target.value)}}
         />
         <Button hoverClass='add-btn-active' onClick={add}>添加</Button>
       </View>
