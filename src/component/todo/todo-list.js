@@ -22,8 +22,8 @@ function reducer(list, action) {
     case 'add':
       list.push({
         id: guid(),
-        text: action.row.text,
-        checked: false
+        checked: false,
+        text: action.row.text
       })
       return list
     case 'del':
@@ -48,6 +48,7 @@ export default function TodoList(props) {
       return
     }
     dispatchList({type: 'add', row: {text: newTodo}});
+    props.onChange(list)
     setNewTodo('')
   }
 
@@ -56,6 +57,7 @@ export default function TodoList(props) {
     // 点击到删除按钮时
     if (key == 1) {
       dispatchList({type: 'del', row: {id: item.id}})
+      props.onChange(list)
     }
   }
 
@@ -72,7 +74,11 @@ export default function TodoList(props) {
 
   // CheckboxGroup - onChange
   const onChange = (e) => {
-    props.onChange(e.target.value)
+    let checkedIds = e.target.value
+    _.forEach(list, o => {
+      o.checked = checkedIds.indexOf(o.id) >= 0
+    })
+    props.onChange(list)
     e.preventDefault
   }
 

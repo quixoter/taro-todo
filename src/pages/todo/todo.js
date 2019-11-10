@@ -33,8 +33,11 @@ export default class Todo extends Component {
 
   componentDidHide () { }
 
+  // TodoList onchange
   tLOnChange(value) {
-    console.log(value)
+    this.setState({
+      list: value
+    })
   }
 
   render () {
