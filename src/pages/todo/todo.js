@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 import './todo.scss'
 import TodoList from '../../component/todo/todo-list'
+import TodoDone from "../../component/todo/todo-done";
 import {guid} from '../../utils/tool.js'
 
 const LIST = [
@@ -10,8 +11,6 @@ const LIST = [
   { id: guid(), checked: false, text: '学习taro' },
   { id: guid(), checked: true, text: '看电视' },
 ]
-
-const TABLIST = [{ title: '全部' }, { title: '完成' }]
 
 export default class Todo extends Component {
 
@@ -38,6 +37,7 @@ export default class Todo extends Component {
   componentDidHide () { }
 
   handleTabClick(value) {
+    console.log(value)
     this.setState({
       tabActive: value
     })
@@ -51,15 +51,15 @@ export default class Todo extends Component {
   }
 
   render () {
-
+    const TABLIST = [{ title: '全部' }, { title: '完成' }]
     return (
       <View className='todo'>
         <AtTabs swipeable={false} current={this.state.tabActive} tabList={TABLIST} onClick={this.handleTabClick.bind(this)}>
           <AtTabsPane className='tab_0' current={this.state.tabActive} index={0} >
             <TodoList list={this.state.list} onChange={this.tLOnChange.bind(this)} />
           </AtTabsPane>
-          <AtTabsPane current={this.state.tabActive} index={1}>
-            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
+          <AtTabsPane className='tab_1' current={this.state.tabActive} index={1}>
+            <TodoDone list={this.state.list} />
           </AtTabsPane>
         </AtTabs>
       </View>
