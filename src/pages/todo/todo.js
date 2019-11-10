@@ -5,7 +5,7 @@ import TodoList from '../../component/todo/todo-list'
 import {guid} from '../../utils/tool.js'
 
 const LIST = [
-  { id: guid(), checked: true, text: '请朋友看电影' },
+  { id: guid(), checked: true, text: '和朋友看电影' },
   { id: guid(), checked: false, text: '学习taro' },
   { id: guid(), checked: true, text: '看电视' },
 ]

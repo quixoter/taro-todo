@@ -34,7 +34,7 @@ function reducer(list, action) {
   }
 }
 
-/** 待办列表*/
+/** 待办列表-所有*/
 export default function TodoList(props) {
 
   // 新的todo
