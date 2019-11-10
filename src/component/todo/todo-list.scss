@@ -1,16 +1,18 @@
 .todo-list {
-  margin-top: 20px;
 }
 
 .add-view {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   input {
+    flex: 1;
     height: 30px;
   }
 
   button {
+    width: 130px;
     line-height: 1.6;
     background-color: #0BBC0F;
     color: white;
