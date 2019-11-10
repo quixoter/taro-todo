@@ -34,9 +34,7 @@ export default class Todo extends Component {
   componentDidHide () { }
 
   tLOnChange(value) {
-    this.setState({
-      doneIds: value
-    })
+    console.log(value)
   }
 
   render () {

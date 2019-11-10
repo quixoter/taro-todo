@@ -1,8 +1,20 @@
 import Taro, {useReducer, useState} from '@tarojs/taro'
+import { AtList, AtSwipeAction } from "taro-ui"
 import _ from 'lodash'
 import {View, CheckboxGroup, Checkbox, Input, Button} from '@tarojs/components'
 import './todo-list.scss'
 import {guid} from '../../utils/tool.js'
+
+const atSwipeActionOptions = [
+  {
+    text: '取消',
+    style: {backgroundColor: '#6190E8'}
+  },
+  {
+    text: '删除',
+    style: {backgroundColor: '#FF4949'}
+  }
+]
 
 /// 添加/删除
 function reducer(list, action) {
@@ -39,8 +51,23 @@ export default function TodoList(props) {
     setNewTodo('')
   }
 
-  const checkboxs =  list.map((item) => (
-    <Checkbox className='todo-item' key={item.id} value={item.id} checked={item.checked}>{item.text}</Checkbox>
+  // 点击滑块
+  const atSwipeClick = (item, o, key) => {
+    // 点击到删除按钮时
+    if (key == 1) {
+      dispatchList({type: 'del', row: {id: item.id}})
+    }
+  }
+
+  const atListItems  =  (list||[]).map((item) => (
+    <AtSwipeAction
+      key={item.id}
+      autoClose
+      options={atSwipeActionOptions}
+      onClick={atSwipeClick.bind(this, item)}
+    >
+      <Checkbox className='todo-item' value={item.id} checked={item.checked}>{item.text}</Checkbox>
+    </AtSwipeAction>
   ))
 
   // CheckboxGroup - onChange
@@ -62,8 +89,10 @@ export default function TodoList(props) {
         <Button hoverClass='add-btn-active' onClick={add}>添加</Button>
       </View>
 
-      <CheckboxGroup onChange={onChange}>
-        {checkboxs}
+      <CheckboxGroup className='list-content' onChange={onChange}>
+        <AtList>
+          {atListItems}
+        </AtList>
       </CheckboxGroup>
     </View>
   )
